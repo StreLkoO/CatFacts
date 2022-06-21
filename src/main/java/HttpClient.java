@@ -7,10 +7,17 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import java.io.IOException;
 
 public class HttpClient {
-
+    private final CloseableHttpClient httpClient;
     private static HttpClient instance;
 
     private HttpClient() {
+        httpClient = HttpClientBuilder.create()
+                .setDefaultRequestConfig(RequestConfig.custom()
+                        .setConnectTimeout(5000)
+                        .setSocketTimeout(30000)
+                        .setRedirectsEnabled(false)
+                        .build())
+                .build();
     }
 
     public static HttpClient get() {
@@ -20,14 +27,8 @@ public class HttpClient {
         return instance;
     }
 
-    public String getContentFromURL(String url) {
-        CloseableHttpClient httpClient = HttpClientBuilder.create()
-                .setDefaultRequestConfig(RequestConfig.custom()
-                        .setConnectTimeout(5000)
-                        .setSocketTimeout(30000)
-                        .setRedirectsEnabled(false)
-                        .build())
-                .build();
+    public String getJsonFromURL(String url) {
+
         HttpGet request = new HttpGet(url);
         try {
             CloseableHttpResponse response = httpClient.execute(request);

@@ -5,7 +5,7 @@ public class Main {
 
     public static void main(String[] args) {
         HttpClient httpClient = HttpClient.get();
-        String json = httpClient.getContentFromURL(URL);
+        String json = httpClient.getJsonFromURL(URL);
         JsonToObjectParser jsonToObjectParser = JsonToObjectParser.get();
         List<Fact> facts = jsonToObjectParser.convert(json);
         facts.stream().
