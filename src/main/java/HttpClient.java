@@ -30,8 +30,7 @@ public class HttpClient {
     public String getJsonFromURL(String url) {
 
         HttpGet request = new HttpGet(url);
-        try {
-            CloseableHttpResponse response = httpClient.execute(request);
+        try (CloseableHttpResponse response = httpClient.execute(request)) {
             return new String(response.getEntity().getContent().readAllBytes());
         } catch (IOException e) {
             e.printStackTrace();
