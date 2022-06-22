@@ -9,7 +9,7 @@ public class Main {
         JsonToObjectParser jsonToObjectParser = JsonToObjectParser.get();
         List<Fact> facts = jsonToObjectParser.convert(json);
         facts.stream().
-                filter(x -> x.getUpvotes() != null && !x.getUpvotes().equals("0"))
+                filter(x -> x.getUpvotes() != 0)
                 .forEach(System.out::println);
 
 
